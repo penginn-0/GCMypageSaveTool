@@ -12,6 +12,8 @@ namespace GCMypageSaveTool
             {
                 Api.GetPlayedMusics();
             }
+            Console.WriteLine("エンターを押して終了します");
+            Console.ReadLine();
         }
     }
 }
