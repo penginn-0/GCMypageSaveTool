@@ -355,7 +355,7 @@ namespace GCMypageSaveTool
                 {
                     break;
                 }
-                Task.Delay(APIIntervalMS);
+                Task.Delay(APIIntervalMS).Wait();
                 }
             
             sw = new StreamWriter(@"PlayedMusicDetail.tsv", false, Encoding.UTF8);
