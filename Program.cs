@@ -12,6 +12,11 @@ namespace GCMypageSaveTool
             {
                 Api.GetPlayedMusics();
             }
+            else
+            {
+                Console.WriteLine("ログインに失敗しました");
+
+            }
             Console.WriteLine("エンターを押して終了します");
             Console.ReadLine();
         }
