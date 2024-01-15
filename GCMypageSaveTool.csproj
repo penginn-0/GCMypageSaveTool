@@ -20,6 +20,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>config.ini</DependentUpon>
     </Compile>
+    <Compile Update="License.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>License.txt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +32,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>config.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="License.txt">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>License.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
