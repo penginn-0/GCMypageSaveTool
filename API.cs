@@ -247,12 +247,12 @@ namespace GCMypageSaveTool
                             }
                             if (rank.difficulty == 2)
                             {
-                                sb.Append($"\t{rank.rank}\t");
+                                sb.Append($"{rank.rank}\t");
                                 continue;
                             }
                             if (rank.difficulty == 3)
                             {
-                                sb.Append($"\t\t{rank.rank}");
+                                sb.Append($"\t{rank.rank}");
                             }
                         }
                         else if (i == 2)
@@ -313,12 +313,12 @@ namespace GCMypageSaveTool
                             }
                             if (rank.difficulty == 2)
                             {
-                                sb.Append($"\t{rank.rank}\t");
+                                sb.Append($"{rank.rank}\t");
                                 continue;
                             }
                             if (rank.difficulty == 3)
                             {
-                                sb.Append($"\t\t{rank.rank}");
+                                sb.Append($"\t{rank.rank}");
                             }
                         }
                         else if (i == 2)
@@ -352,7 +352,7 @@ namespace GCMypageSaveTool
                     sb.AppendLine();
                     Console.WriteLine($"データ取得完了({Count}/{MusicList.music_list.Length})");
 #if DEBUG
-                if(Count ==5)
+                if(Count ==10)
                 {
                     break;
                 }
