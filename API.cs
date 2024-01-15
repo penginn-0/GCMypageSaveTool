@@ -351,11 +351,13 @@ namespace GCMypageSaveTool
                 }
                     sb.AppendLine();
                     Console.WriteLine($"データ取得完了({Count}/{MusicList.music_list.Length})");
+#if DEBUG
                 if(Count ==5)
                 {
                     break;
                 }
-                Task.Delay(APIIntervalMS).Wait();
+#endif
+                    Task.Delay(APIIntervalMS).Wait();
                 }
             
             sw = new StreamWriter(@"PlayedMusicDetail.tsv", false, Encoding.UTF8);
