@@ -366,7 +366,7 @@ namespace GCMypageSaveTool
             sw = new StreamWriter(@"PlayerData.tsv", true, Encoding.UTF8);
             sw.WriteLine("トータルプレイTUNE\tプレイ回数(S)\tプレイ回数(N)\tプレイ回数(H)\tプレイ回数(EX)");
             sw.WriteLine($"{TotalPlayedCount}\t{TotalSimplePlayCount}\t{TotalNormalPlayCount}\t{TotalHardPlayCount}\t{TotalExtraPlayCount}");
-            sw.WriteLine("トータルNO MISS数\tトータルFULL CHAIN数\tトータルPERFECT数");
+            sw.WriteLine("トータルNO MISS回数\tトータルFULL CHAIN回数\tトータルPERFECT回数");
             sw.WriteLine($"{TotalNoMissCount}\t{TotalFullChainCount}\t{TotalPerfectCount}");
             sw.WriteLine("トータルAD-LIB数\tトータルMAX-CHAIN数");
             sw.WriteLine($"{TotalAdlibCount}\t{TotalChainCount}");
