@@ -369,6 +369,8 @@ namespace GCMypageSaveTool
             sw.WriteLine("トータルAD-LIB数\tトータルMAX-CHAIN数");
             sw.WriteLine($"{TotalAdlibCount}\t{TotalChainCount}");
             sw.Dispose();
+            Console.WriteLine("プレイ済み楽曲データ取得が完了しました");
+
         }
     }
 }
