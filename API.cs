@@ -86,7 +86,7 @@ namespace GCMypageSaveTool
             sw.Dispose();
             sb.Clear();
             sb.AppendLine(
-                "楽曲ID\t楽曲名\tアーティスト\t使用スキン\t楽曲プレイ回数\tお気に入り\t" +
+                "楽曲ID\t楽曲名\tアーティスト\t使用スキン\t楽曲プレイ回数\t最終プレイ日時\tお気に入り\t" +
                 "プレイ回数(S)\tノーミス数(S)\tフルチェイン数(S)\tパーフェクト数(S)\t評価(S)\tスコア(S)\tMAX-CHAIN(S)\tAD-LIB数(S)\t"+
                 "プレイ回数(N)\tノーミス数(N)\tフルチェイン数(N)\tパーフェクト数(N)\t評価(N)\tスコア(N)\tMAX-CHAIN(N)\tAD-LIB数(N)\t"+
                 "プレイ回数(H)\tノーミス数(H)\tフルチェイン数(H)\tパーフェクト数(H)\t評価(H)\tスコア(H)\tMAX-CHAIN(H)\tAD-LIB数(H)\t"+
@@ -109,7 +109,7 @@ namespace GCMypageSaveTool
                 Console.WriteLine($"データ取得中({++Count}/{MusicList.music_list.Length})");
                 JsonRet = Client.GetAsync(MusicDetailEndPoint + Music.music_id).Result.Content.ReadAsStringAsync().Result;
                 var MusicData = JsonSerializer.Deserialize<MusicDetail_Rootobject>(JsonRet);
-                sb.Append($"{MusicData.music_detail.music_id}\t{MusicData.music_detail.music_title}\t{MusicData.music_detail.artist}\t{MusicData.music_detail.skin_name}\t{Music.play_count}\t{MusicData.music_detail.fav_flg}\t");
+                sb.Append($"{MusicData.music_detail.music_id}\t{MusicData.music_detail.music_title}\t{MusicData.music_detail.artist}\t{MusicData.music_detail.skin_name}\t{Music.play_count}\t{Music.last_play_time}\t{MusicData.music_detail.fav_flg}\t");
                 if (MusicData.music_detail.simple_result_data != null)
                 {
                     TotalSimplePlayCount += MusicData.music_detail.simple_result_data.play_count;
