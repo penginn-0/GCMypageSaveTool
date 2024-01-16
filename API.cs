@@ -22,6 +22,8 @@ namespace GCMypageSaveTool
         private static readonly string PlayerDataEndPoint = "https://mypage.groovecoaster.jp/sp/json/player_data.php";
         private static readonly string MusicDetailEndPoint = "https://mypage.groovecoaster.jp/sp/json/music_detail.php?music_id=";
         private static readonly string MusicListEndPoint = "https://mypage.groovecoaster.jp/sp/json/music_list.php";
+        static bool UpdatePlayer = false;
+        static string PlayerDataStr ="";
         /// <summary>
         /// ログインしてプレイヤーデータを取得する
         /// エラーならばfalse
@@ -47,12 +49,12 @@ namespace GCMypageSaveTool
                 }
                 Console.WriteLine("ログインに成功しました。");
                 Console.WriteLine($"プレイヤーネーム：{PlayerData.player_data.player_name}");
-                StreamWriter sw = new StreamWriter(@"PlayerData.tsv", false, Encoding.UTF8);
-                sw.WriteLine("プレイヤーネーム\tトータルスコア\tプレイ済み楽曲数\t順位\tレベル\tアバター\t称号\tトロフィー数\tトロフィー順位\t平均スコア\tバージョン");
-                sw.WriteLine($"{PlayerData.player_data.player_name}\t{PlayerData.player_data.total_score}\t{PlayerData.player_data.total_play_music}/{PlayerData.player_data.total_music}\t{PlayerData.player_data.rank}\t{PlayerData.player_data.level}\t{PlayerData.player_data.avatar}\t{PlayerData.player_data.title}\t{PlayerData.player_data.total_trophy}\t{PlayerData.player_data.trophy_rank}\t{PlayerData.player_data.average_score}\t{PlayerData.player_data.version}");
-                sw.WriteLine("クリアステージ数\tノーミスステージ数\tフルチェインステージ数\tパーフェクトステージ数\tSステージ数\tS+ステージ数\tS++ステージ数");
-                sw.WriteLine($"{PlayerData.stage.clear}/{PlayerData.stage.all}\t{PlayerData.stage.nomiss}/{PlayerData.stage.all}\t{PlayerData.stage.fullchain}/{PlayerData.stage.all}\t{PlayerData.stage.perfect}/{PlayerData.stage.all}\t{PlayerData.stage.s}/{PlayerData.stage.all}\t{PlayerData.stage.ss}/{PlayerData.stage.all}\t{PlayerData.stage.sss}/{PlayerData.stage.all}");
-                sw.Dispose();
+                
+                if(File.Exists(@"PlayerData.tsv"))
+                {
+                    UpdatePlayer = true;
+                }
+                PlayerDataStr = $"{PlayerData.player_data.player_name}\t{PlayerData.player_data.total_score}\t{PlayerData.player_data.total_play_music}\t{PlayerData.player_data.total_music}\t{PlayerData.stage.clear}\t{PlayerData.stage.nomiss}\t{PlayerData.stage.fullchain}\t{PlayerData.stage.perfect}\t{PlayerData.stage.s}\t{PlayerData.stage.ss}\t{PlayerData.stage.sss}\t{PlayerData.stage.all}\t{PlayerData.player_data.rank}\t{PlayerData.player_data.level}\t{PlayerData.player_data.avatar}\t{PlayerData.player_data.title}\t{PlayerData.player_data.total_trophy}\t{PlayerData.player_data.trophy_rank}\t{PlayerData.player_data.average_score}\t{PlayerData.player_data.version}\t";
             }
             catch (Exception e)
             {
@@ -363,15 +365,18 @@ namespace GCMypageSaveTool
             sw = new StreamWriter(@"PlayedMusicDetail.tsv", false, Encoding.UTF8);
             sw.Write(sb.ToString());
             sw.Dispose();
-            sw = new StreamWriter(@"PlayerData.tsv", true, Encoding.UTF8);
-            sw.WriteLine("トータルプレイTUNE\tプレイ回数(S)\tプレイ回数(N)\tプレイ回数(H)\tプレイ回数(EX)");
-            sw.WriteLine($"{TotalPlayedCount}\t{TotalSimplePlayCount}\t{TotalNormalPlayCount}\t{TotalHardPlayCount}\t{TotalExtraPlayCount}");
-            sw.WriteLine("トータルNO MISS回数\tトータルFULL CHAIN回数\tトータルPERFECT回数");
-            sw.WriteLine($"{TotalNoMissCount}\t{TotalFullChainCount}\t{TotalPerfectCount}");
-            sw.WriteLine("トータルAD-LIB数\tトータルMAX-CHAIN数");
-            sw.WriteLine($"{TotalAdlibCount}\t{TotalChainCount}");
+            PlayerDataStr += $"{TotalPlayedCount}\t{TotalSimplePlayCount}\t{TotalNormalPlayCount}\t{TotalHardPlayCount}\t{TotalExtraPlayCount}\t{TotalNoMissCount}\t{TotalFullChainCount}\t{TotalPerfectCount}\t{TotalAdlibCount}\t{TotalChainCount}\t{MusicList.music_list[0].last_play_time}";
+            sw = new StreamWriter(@"PlayerData.tsv", false, Encoding.UTF8);
+            sw.WriteLine("プレイヤーネーム\tトータルスコア\tプレイ済み楽曲数\t総楽曲数\tクリアステージ数\tノーミスステージ数\tフルチェインステージ数\tパーフェクトステージ数\tSステージ数\tS+ステージ数\tS++ステージ数\t総ステージ数\t順位\tレベル\tアバター\t称号\tトロフィー数\tトロフィー順位\t平均スコア\tバージョン\tトータルプレイTUNE\tプレイ回数(S)\tプレイ回数(N)\tプレイ回数(H)\tプレイ回数(EX)\tトータルNO MISS回数\tトータルFULL CHAIN回数\tトータルPERFECT回数\tトータルAD-LIB数\tトータルMAX-CHAIN数\t最終プレイ日時");
+            sw.Write(PlayerDataStr);
             sw.Dispose();
-            Console.WriteLine("プレイ済み楽曲データ取得が完了しました");
+            if (UpdatePlayer)
+            {
+                sw = new StreamWriter(@"PlayerData_upd.tsv", false, Encoding.UTF8);
+                sw.Write(PlayerDataStr);
+                sw.Dispose();
+            }
+            Console.WriteLine("プレイヤーデータ、プレイ済み楽曲データの取得、保存が完了しました");
 
         }
     }
